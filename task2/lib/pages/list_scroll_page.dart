@@ -42,7 +42,6 @@ class ListScrollPage extends StatelessWidget {
                     image:AssetImage(_scrollItems[i].listImg)
                   ),
                 ],
-                Text(_scrollItems[i].title)
               ),
             ),
         ],
