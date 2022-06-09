@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(title: 'Flutter Demo Home Page'),
       initialRoute: '/',
       routes: {
-        // '/': (context) => LoginPage(),
         '/TopPage': (context) => const TopPage(),
         '/ListScrollPage': (context) => ListScrollPage(),
       },

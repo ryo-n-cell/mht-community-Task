@@ -21,7 +21,7 @@ class CommonDrawer  extends StatelessWidget {
             title: Text(_drawerItems[index].title),
             leading: Icon(_drawerItems[index].icon),
             onTap: () {
-              Navigator.pushNamed(context, _drawerItems[index].rootPage);
+              Navigator.pushReplacementNamed(context, _drawerItems[index].rootPage);
           },
           );
         },
