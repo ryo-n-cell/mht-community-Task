@@ -69,12 +69,7 @@ class _LoginPage extends State<LoginPage> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TopPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/TopPage');
                   },
                 ),
               ),
