@@ -15,20 +15,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const LoginPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginPage extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,20 +51,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Spacer(),
-              const TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Email Address',
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Eメールが入力されていません';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.length < 5) {
+                          return '5文字以上のパスワードを入れてください';
+                        }
+                        return null;
+                      },
+                    )
+                  ],
                 ),
               ),
               TextButton(
@@ -88,12 +110,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NextPage(),
-                      ),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NextPage(),
+                        ),
+                      );
+                    }
                   },
                 ),
               ),
@@ -107,6 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class NextPage extends StatelessWidget {
+  const NextPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,3 +145,7 @@ class NextPage extends StatelessWidget {
     );
   }
 }
+
+//参考URL：
+//https://docs.flutter.dev/cookbook/forms/validation
+//https://zenn.dev/joo_hashi/articles/fc6914a5d74629
