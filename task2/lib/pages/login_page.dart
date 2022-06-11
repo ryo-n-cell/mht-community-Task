@@ -91,7 +91,7 @@ class _LoginPage extends State<LoginPage> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, '/TopPage');
+                      Navigator.pushReplacementNamed(context, '/TopPage');
                     }
                   },
                 ),
