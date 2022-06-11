@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer' as developer;
+// import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,9 @@ class ListCollectPage extends StatefulWidget {
 
 class _ListCollectPage extends State<ListCollectPage> {
 
-  Future<List<ListCollect>> _searchLists(String searchWord) async {
+  List<ListCollect> viewList = [];
+
+   Future<void> _searchLists(String searchWord) async {
     String url = 'https://connpass.com/api/v1/event/?count=5';
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -22,8 +24,9 @@ class _ListCollectPage extends State<ListCollectPage> {
       for (var item in decoded['events']) {
         list.add(ListCollect.fromJson(item));
       }
-      // developer.log(jsonEncode());
-      return list;
+      setState((){
+        viewList = list;
+      });
     } else {
       throw Exception('Fail to search repository');
     }
@@ -32,28 +35,32 @@ class _ListCollectPage extends State<ListCollectPage> {
   @override
   void initState() {
     super.initState();
-    _searchLists("AAA");
-    // print(_searchLists.length);
+     _searchLists("AAA");
   }
 
-  List<Color> colorList = [Colors.cyan, Colors.deepOrange, Colors.indigo];
 
   void _listDebug(){
-    // print(_searchLists.length);
-    // print(_searchLists[0].title);
-    // print(_searchLists[0].hashTag);
-    // print(_searchLists[0].startedAt);
+    print(viewList);
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
         body: ListView.builder(
+          itemCount: viewList.length ,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 80,
-              color: colorList[index % colorList.length],
+            return Card(
+              color: Colors.grey,
+              child: Row(
+                children:<Widget> [
+                  ListTile(
+                    title:Text(viewList[index].title),
+                    subtitle:Text(viewList[index].hashTag),
+                  ),
+                ],
+              ),
             );
           },
         ),
@@ -71,7 +78,7 @@ class _ListCollectPage extends State<ListCollectPage> {
 class ListCollect{
   final int id;
   final String title;
-  final String? hashTag;
+  final String hashTag;
   final String startedAt;
 
   ListCollect.fromJson(Map<String, dynamic> json)
