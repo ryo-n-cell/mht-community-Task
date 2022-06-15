@@ -40,7 +40,10 @@ class _ListCollectPage extends State<ListCollectPage> {
 
 
   void _listDebug(){
-    print(viewList);
+    final date = viewList[0].startedAt.substring(0,9);
+    final time = viewList[0].startedAt.substring(11,19);
+    print(date);
+    print(time);
   }
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,8 @@ class _ListCollectPage extends State<ListCollectPage> {
           return Card(
             child:ListTile(
               title: Text(viewList[index].title),
-              subtitle: Text(viewList[index].startedAt),
+              // subtitle: Text(viewList[index].startedAt),
+              subtitle: Text('${viewList[index].startedAt.substring(0,9)} / ${viewList[index].startedAt.substring(11,16)}'),
             )
           );
         },
@@ -75,10 +79,14 @@ class ListCollect{
   final String title;
   final String hashTag;
   final String startedAt;
+  // final String date;
+  // final String time;
 
   ListCollect.fromJson(Map<String, dynamic> json)
       : id = json['event_id'],
         title = json['title'],
         hashTag = json['hash_tag'],
         startedAt = json['started_at'];
+        // date = json['date'],
+        // time = json['time'];
 }
