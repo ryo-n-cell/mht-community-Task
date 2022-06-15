@@ -15,7 +15,7 @@ class _ListCollectPage extends State<ListCollectPage> {
 
   List<ListCollect> viewList = [];
 
-   Future<void> _searchLists(String searchWord) async {
+  Future<void> _searchLists(String searchWord) async {
     String url = 'https://connpass.com/api/v1/event/?count=5';
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -35,7 +35,7 @@ class _ListCollectPage extends State<ListCollectPage> {
   @override
   void initState() {
     super.initState();
-     _searchLists("AAA");
+    _searchLists("AAA");
   }
 
 
@@ -48,22 +48,17 @@ class _ListCollectPage extends State<ListCollectPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-        body: ListView.builder(
-          itemCount: viewList.length ,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              color: Colors.grey,
-              child: Row(
-                children:<Widget> [
-                  ListTile(
-                    title:Text(viewList[index].title),
-                    subtitle:Text(viewList[index].hashTag),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: viewList.length ,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child:ListTile(
+              title: Text(viewList[index].title),
+              subtitle: Text(viewList[index].startedAt),
+            )
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           _listDebug();
@@ -82,8 +77,8 @@ class ListCollect{
   final String startedAt;
 
   ListCollect.fromJson(Map<String, dynamic> json)
-    : id = json['event_id'],
-    title = json['title'],
-    hashTag = json['hash_tag'],
-    startedAt = json['started_at'];
+      : id = json['event_id'],
+        title = json['title'],
+        hashTag = json['hash_tag'],
+        startedAt = json['started_at'];
 }
