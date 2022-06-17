@@ -2,6 +2,7 @@ import 'dart:convert';
 // import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'list_single_page.dart';
 
 class ListCollectPage extends StatefulWidget {
   const ListCollectPage({Key? key, required this.title}) : super(key: key);
@@ -40,10 +41,11 @@ class _ListCollectPage extends State<ListCollectPage> {
 
 
   void _listDebug(){
-    final date = viewList[0].startedAt.substring(0,9);
-    final time = viewList[0].startedAt.substring(11,19);
-    print(date);
-    print(time);
+    // final date = viewList[0].startedAt.substring(0,9);
+    // final time = viewList[0].startedAt.substring(11,19);
+    // print(date);
+    // print(time);
+    print(viewList[0].title);
   }
   @override
   Widget build(BuildContext context) {
@@ -54,12 +56,19 @@ class _ListCollectPage extends State<ListCollectPage> {
       body: ListView.builder(
         itemCount: viewList.length ,
         itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child:ListTile(
-              title: Text(viewList[index].title),
-              // subtitle: Text(viewList[index].startedAt),
-              subtitle: Text('${viewList[index].startedAt.substring(0,9)} / ${viewList[index].startedAt.substring(11,16)}'),
-            )
+          return InkWell(
+              onTap:(){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SingleList(value:viewList)),
+                );
+              },
+              child: Card(
+                child:ListTile(
+                  title: Text(viewList[index].title),
+                  subtitle: Text('${viewList[index].startedAt.substring(0,9)} / ${viewList[index].startedAt.substring(11,16)}'),
+                ) ,
+              )
           );
         },
       ),
