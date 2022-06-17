@@ -2,11 +2,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class SingleList extends StatelessWidget {
+  final int listId;
   final List<dynamic> value;
-  const SingleList({Key? key, required this.value}) : super(key: key);
+  const SingleList({Key? key,required this.listId, required this.value}) : super(key: key);
 
   void _listDebug(){
-    print(value[0].title);
+    print(value[listId].title);
   }
 
   @override

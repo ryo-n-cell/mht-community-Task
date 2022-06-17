@@ -41,10 +41,6 @@ class _ListCollectPage extends State<ListCollectPage> {
 
 
   void _listDebug(){
-    // final date = viewList[0].startedAt.substring(0,9);
-    // final time = viewList[0].startedAt.substring(11,19);
-    // print(date);
-    // print(time);
     print(viewList[0].title);
   }
   @override
@@ -60,7 +56,7 @@ class _ListCollectPage extends State<ListCollectPage> {
               onTap:(){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SingleList(value:viewList)),
+                  MaterialPageRoute(builder: (context) => SingleList(listId: index,value:viewList)),
                 );
               },
               child: Card(
