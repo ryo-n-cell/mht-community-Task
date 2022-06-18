@@ -80,4 +80,3 @@ class _ListCollectPage extends State<ListCollectPage> {
     );
   }
 }
-
