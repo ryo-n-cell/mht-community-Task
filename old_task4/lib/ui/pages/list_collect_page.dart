@@ -17,7 +17,7 @@ class _ListCollectPage extends State<ListCollectPage> {
   List<ListCollect> viewList = [];
 
   Future<void> _searchLists(String searchWord) async {
-    String url = 'https://connpass.com/api/v1/event/?count=5';
+    String url = 'https://connpass.com/api/v1/event/?count=10';
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       List<ListCollect> list = [];
@@ -39,7 +39,6 @@ class _ListCollectPage extends State<ListCollectPage> {
     _searchLists("AAA");
   }
 
-
   void _listDebug(){
     print(viewList[0].title);
   }
@@ -49,24 +48,26 @@ class _ListCollectPage extends State<ListCollectPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: viewList.length ,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-              onTap:(){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SingleList(listId: index,value:viewList)),
-                );
-              },
-              child: Card(
-                child:ListTile(
-                  title: Text(viewList[index].title),
-                  subtitle: Text('${viewList[index].startedAt.substring(0,9)} / ${viewList[index].startedAt.substring(11,16)}'),
-                ) ,
-              )
-          );
-        },
+      body: SafeArea(
+          child:ListView.builder(
+            itemCount: viewList.length ,
+            itemBuilder: (BuildContext context, int index) {
+              return InkWell(
+                  onTap:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SingleList(listId: index,value:viewList)),
+                    );
+                  },
+                  child: Card(
+                    child:ListTile(
+                      title: Text(viewList[index].title),
+                      subtitle: Text('${viewList[index].startedAt.substring(0,9)} / ${viewList[index].startedAt.substring(11,16)}'),
+                    ) ,
+                  )
+              );
+            },
+          ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -82,16 +83,22 @@ class _ListCollectPage extends State<ListCollectPage> {
 class ListCollect{
   final int id;
   final String title;
-  final String hashTag;
+  final String subTitle;
+  final String description;
+  final String eventUrl;
   final String startedAt;
-  // final String date;
-  // final String time;
+  final String endedAt;
+  final String? place;
+  final String? address;
 
   ListCollect.fromJson(Map<String, dynamic> json)
-      : id = json['event_id'],
-        title = json['title'],
-        hashTag = json['hash_tag'],
-        startedAt = json['started_at'];
-        // date = json['date'],
-        // time = json['time'];
+    : id = json['event_id'],
+      title = json['title'],
+      subTitle = json['catch'],
+      description = json['description'],
+      eventUrl = json['event_url'],
+      startedAt = json['started_at'],
+      endedAt = json['ended_at'],
+      place = json['place'],
+      address = json['address'];
 }

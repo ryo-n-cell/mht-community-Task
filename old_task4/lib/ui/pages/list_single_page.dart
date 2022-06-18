@@ -14,7 +14,7 @@ class SingleList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TEST"),
+        title: Text(value[listId].title),
       ),
       body: Column(
         children: const [
@@ -30,20 +30,4 @@ class SingleList extends StatelessWidget {
       ),
     );
   }
-}
-class ListCollect{
-  final int id;
-  final String title;
-  final String hashTag;
-  final String startedAt;
-  // final String date;
-  // final String time;
-
-  ListCollect.fromJson(Map<String, dynamic> json)
-      : id = json['event_id'],
-        title = json['title'],
-        hashTag = json['hash_tag'],
-        startedAt = json['started_at'];
-// date = json['date'],
-// time = json['time'];
 }
