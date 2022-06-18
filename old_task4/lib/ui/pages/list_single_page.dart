@@ -1,24 +1,26 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import '../../models/data_collect.dart';
 
 class SingleList extends StatelessWidget {
   final DataCollect singles;
-  const SingleList({Key? key,required this.singles}) : super(key: key);
+  SingleList({Key? key,required this.singles}) : super(key: key);
   void _listDebug(){
-    print(singles.title);
+    print(singles.description);
   }
 
   @override
   Widget build(BuildContext context) {
+    final htmlData = singles.description;
     return Scaffold(
       appBar: AppBar(
         title: Text(singles.title),
       ),
-      body: Column(
-        children: const [
-          Text("value"),
-        ],
+      body: SingleChildScrollView(
+        child: Html(
+          data: htmlData,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
