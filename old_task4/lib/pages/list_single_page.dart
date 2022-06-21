@@ -5,7 +5,7 @@ import '../../models/data_collect.dart';
 
 class SingleList extends StatelessWidget {
   final DataCollect singles;
-  SingleList({Key? key,required this.singles}) : super(key: key);
+  const SingleList({Key? key,required this.singles}) : super(key: key);
   void _listDebug(){
     print(singles.description);
   }

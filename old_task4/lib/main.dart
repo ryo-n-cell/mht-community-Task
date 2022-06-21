@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/pages/list_collect_page.dart';
+import 'pages/list_collect_page.dart';
 
 void main() {
   runApp(const MyApp());
