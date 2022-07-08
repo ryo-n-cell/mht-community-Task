@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
-
+import 'pages/top_page.dart';
+import 'pages/list_scroll_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,6 +18,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const LoginPage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        '/TopPage': (context) => const TopPage(),
+        '/ListScrollPage': (context) => ListScrollPage(),
+      },
     );
   }
 }

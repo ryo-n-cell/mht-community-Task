@@ -3,6 +3,7 @@ import '../components/common_drawer.dart';
 
 class ListScrollPage extends StatelessWidget {
   ListScrollPage({Key? key}) : super(key: key);
+  final pageTitle = "OOUIについて";
 
   late final List<ScrollList> _scrollItems = [
     ScrollList("List1", "assets/images/list_img_1.jpg"),
@@ -27,7 +28,7 @@ class ListScrollPage extends StatelessWidget {
     return Scaffold(
         endDrawer: CommonDrawer(),
         appBar: AppBar(
-          title: const Text("ListScrollPage"),
+          title: const Text("OOUIについて"),
         ),
         body: SafeArea(
           child: GridView.count(

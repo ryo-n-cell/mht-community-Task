@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'top_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -10,6 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,20 +31,40 @@ class _LoginPage extends State<LoginPage> {
                 ),
               ),
               const Spacer(),
-              const TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                          labelText: 'Email Address',
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Eメールが入力されていません';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.length < 5) {
+                          return '5文字以上のパスワードを入れてください';
+                        }
+                        return null;
+                      },
+                    )
+                  ],
                 ),
               ),
               TextButton(
@@ -69,12 +90,9 @@ class _LoginPage extends State<LoginPage> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TopPage(),
-                      ),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushReplacementNamed(context, '/TopPage');
+                    }
                   },
                 ),
               ),
@@ -87,3 +105,6 @@ class _LoginPage extends State<LoginPage> {
   }
 }
 
+//参考URL：
+//https://docs.flutter.dev/cookbook/forms/validation
+//https://zenn.dev/joo_hashi/articles/fc6914a5d74629
